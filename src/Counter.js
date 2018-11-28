@@ -19,7 +19,19 @@ class Counter extends React.Component {
         )
     }
 
-    componentDidUpdate(){
+    getFromFireBase = () => {
+        fetch(
+            'https://poniedzialek-ee614.firebaseio.com/counter.json'
+        )
+            .then(r => r.json())
+            .then(data => this.setState({ number: data}))
+    }
+
+    componentDidMount() {
+        this.getFromFireBase()
+    }
+
+    componentDidUpdate() {
         this.saveToFirebase()
     }
 
