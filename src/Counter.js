@@ -24,7 +24,10 @@ class Counter extends React.Component {
             'https://poniedzialek-ee614.firebaseio.com/counter.json'
         )
             .then(r => r.json())
-            .then(data => this.setState({ number: data}))
+            .then( data => {
+            if (this.state.number === data) return
+            this.setState({ number: data})
+            })
     }
 
     componentDidMount() {
