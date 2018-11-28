@@ -23,6 +23,7 @@ class Chat extends React.Component {
                     key: entry[0]
                 })
                 )
+                this.setState({ messages: messages})
             }
         )
     }
