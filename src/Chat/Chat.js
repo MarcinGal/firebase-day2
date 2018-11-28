@@ -13,9 +13,12 @@ class Chat extends React.Component {
         )
 
     onNewMessageTextClickHandler = () => {
-        database.ref('/')
-    }
-
+        database.ref('/chat').push({
+        text: this.state.newMessageText,
+        timestamp: Date.now()
+    })
+    this.setState({ newMessageText: '' })
+}
     render() {
         return (
             <div>
