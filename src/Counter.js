@@ -14,8 +14,6 @@ class Counter extends React.Component {
         )
     }
 
-
-
     incHandler = () => database.ref('/counter').set(this.state.number + 1)
     decHandler = () => database.ref('/counter').set(this.state.number - 1)
 
