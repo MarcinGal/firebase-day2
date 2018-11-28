@@ -1,10 +1,35 @@
 import React from 'react'
 import NewMessageForm from './NewMessageForm'
-import { database } from 'firebase';
+import { database } from '../firebaseConfig'
+
+const dbMessages = database.ref('/chat')
 
 class Chat extends React.Component {
     state = {
-        newMessageText: ''
+        newMessageText: '',
+        messages: []
+    }
+
+    c
+
+    componentDidMount() {
+        dbMessages.on(
+            'value',
+            snapshot => {
+                console.log(
+                    messages = Object.entries(
+                        snapshot.val()
+                    ).map((entry) => ({
+                        ...entry[1],
+                        key: entry[0]
+                    }))
+                )
+            }
+        )
+    }
+
+    componentWillUnmount(){
+        dbMessages.off
     }
 
     onNewMessageTextChangeHandler = (event) =>
@@ -13,12 +38,13 @@ class Chat extends React.Component {
         )
 
     onNewMessageTextClickHandler = () => {
-        database.ref('/chat').push({
-        text: this.state.newMessageText,
-        timestamp: Date.now()
-    })
-    this.setState({ newMessageText: '' })
-}
+        dbMessages.push({
+            text: this.state.newMessageText,
+            timestamp: Date.now()
+        })
+        this.setState({ newMessageText: '' })
+    }
+
     render() {
         return (
             <div>
@@ -27,9 +53,17 @@ class Chat extends React.Component {
                     onNewMessageTextChangeHandler={this.onNewMessageTextChangeHandler}
                     onNewMessageTextClickHandler={this.onNewMessageTextClickHandler}
                 />
+                {
+                    this.state.messages.map(message => (
+                        <div>
+                            {message.text}
+                        <div />
+                            )
+                            })
+                        }
             </div>
-        )
+                    )
     }
-}
-
+                }
+                
 export default Chat
