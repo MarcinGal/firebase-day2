@@ -16,20 +16,19 @@ class Chat extends React.Component {
         dbMessages.on(
             'value',
             snapshot => {
-                console.log(
-                    messages = Object.entries(
-                        snapshot.val()
-                    ).map((entry) => ({
-                        ...entry[1],
-                        key: entry[0]
-                    }))
+                const messages = Object.entries(
+                    snapshot.val()
+                ).map((entry) => ({
+                    ...entry[1],
+                    key: entry[0]
+                })
                 )
             }
         )
     }
 
-    componentWillUnmount(){
-        dbMessages.off
+    componentWillUnmount() {
+        dbMessages.off()
     }
 
     onNewMessageTextChangeHandler = (event) =>
@@ -55,15 +54,16 @@ class Chat extends React.Component {
                 />
                 {
                     this.state.messages.map(message => (
-                        <div>
+                        <div
+                            key={message.key}
+                        >
                             {message.text}
-                        <div />
-                            )
-                            })
-                        }
-            </div>
-                    )
-    }
+                        </div >
+                    ))
                 }
-                
+            </div>
+        )
+    }
+}
+
 export default Chat
