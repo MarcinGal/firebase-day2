@@ -6,44 +6,12 @@ const dbMessages = database.ref('/chat')
 
 class Chat extends React.Component {
     state = {
-        newMessageText: '',
+        newMessageText: 'krowa',
         messages: []
     }
 
-    c
 
-    componentDidMount() {
-        dbMessages.on(
-            'value',
-            snapshot => {
-                const messages = Object.entries(
-                    snapshot.val()
-                ).map((entry) => ({
-                    ...entry[1],
-                    key: entry[0]
-                })
-                )
-                this.setState({ messages: messages})
-            }
-        )
-    }
 
-    componentWillUnmount() {
-        dbMessages.off()
-    }
-
-    onNewMessageTextChangeHandler = (event) =>
-        (
-            this.setState({ newMessageText: event.target.value })
-        )
-
-    onNewMessageTextClickHandler = () => {
-        dbMessages.push({
-            text: this.state.newMessageText,
-            timestamp: Date.now()
-        })
-        this.setState({ newMessageText: '' })
-    }
 
     render() {
         return (
