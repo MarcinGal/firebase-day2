@@ -1,5 +1,5 @@
 import React from 'react'
-import { auth } from '../firebaseConfig'
+import { auth, googleProvider } from '../firebaseConfig'
 import Forms from './Forms'
 
 class Auth extends React.Component {
@@ -31,7 +31,9 @@ class Auth extends React.Component {
             })
     }
 
-    onLogInGoogleClick = () => { }
+    onLogInGoogleClick = () => {
+        auth.signInWithPopup(googleProvider)
+     }
 
     render() {
         return (
