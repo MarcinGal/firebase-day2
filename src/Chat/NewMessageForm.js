@@ -13,18 +13,22 @@ const NewMessageForm = (props) => (
             zIndex: 3
         }}
     >
-        < TextField
-            type="text"
-            value={props.newMessageText}
-            onChange={props.onNewMessageTextChangeHandler}
-            fullWidth={true}
-        />
-        < RaisedButton
-            label={'Add new message'}
-            primary={true}
-            onClick={props.onNewMessageTextClickHandler}
-            fullWidth={true}
-        />
+        <form
+            onSubmit={props.onNewMessageTextClickHandler}
+        >
+            < TextField
+                type="text"
+                value={props.newMessageText}
+                onChange={props.onNewMessageTextChangeHandler}
+                fullWidth={true}
+            />
+            < RaisedButton
+                label={'Add new message'}
+                primary={true}
+                onClick={props.onNewMessageTextClickHandler}
+                fullWidth={true}
+            />
+        </form>
     </Paper>
 )
 

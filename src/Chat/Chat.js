@@ -30,11 +30,18 @@ class Chat extends React.Component {
 
     onNewMessageTextChangeHandler = event => this.setState({ newMessageText: event.target.value })
 
-    onNewMessageTextClickHandler = () => {
+    onNewMessageTextClickHandler = event => {
+        event.preventDefault()
+
         dbMessages.push({
             text: this.state.newMessageText,
             timestamp: Date.now()
         })
+    }
+
+    onDeleteMessageClickHandler = messageKey => {
+        dbMessages.child(messageKey)
+        .remove()
     }
 
     render() {
@@ -47,6 +54,7 @@ class Chat extends React.Component {
                 />
                <MessagesList
                messages={this.state.messages}
+               onDeleteMessageClickHandler={this.onDeleteMessageClickHandler}
                />
             </div>
         )
