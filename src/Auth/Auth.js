@@ -1,46 +1,32 @@
 import React from 'react'
-import TextField from 'material-ui/TextField'
-import RaisedButton from 'material-ui/RaisedButton'
+import Forms from './Forms'
 
 class Auth extends React.Component {
     state = {
-        newLoginText: '',
-        newPasswordText: ''
+        email: '',
+        password: '',
+        isUserLoggedIn: false
     }
 
-    onNewLoginTextChangeHandler = event => this.setState({ newLoginText: event.target.value })
-    onNewPasswordTextChangeHandler = event => this.setState({ newPasswordText: event.target.value })
+    onNewLoginTextChangeHandler = event => this.setState({ email: event.target.value })
+    onNewPasswordTextChangeHandler = event => this.setState({ password: event.target.value })
 
 
+    onLogInClick = () => {}
+    onLogInGoogleClick = () => {}
     render() {
         return (
-            <div>
-                <TextField
-                    value={this.state.newLoginText}
-                    onChange={this.onNewLoginTextChangeHandler}
-                    fullWidth={true}
+            this.state.isUserLoggedIn ?
+            this.props.children
+            :
+                <Forms
+                    email={this.state.email}
+                    onNewLoginTextChangeHandler={this.onNewLoginTextChangeHandler}
+                    password={this.state.password}
+                    onNewPasswordTextChangeHandler={this.onNewPasswordTextChangeHandler}
+                    onLogInClick={this.onLogInClick}
+                    onLogInGoogleClick={this.onLogInGoogleClick}
                 />
-
-                <TextField
-                    type='password'
-                    value={this.state.newPasswordText}
-                    onChange={this.onNewPasswordTextChangeHandler}
-                    fullWidth={true}
-
-                />
-
-                <RaisedButton
-                    label={'Button1'}
-                    onClick={() => alert('placuszki-1')}
-                />
-
-
-                <RaisedButton
-                    label={' Button2'}
-                    onClick={() => alert('placuszki-2')}
-                />
-
-            </div>
         )
     }
 
