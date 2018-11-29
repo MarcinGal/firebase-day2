@@ -2,26 +2,40 @@ import React from 'react'
 import NewMessageForm from './NewMessageForm'
 import { database } from '../firebaseConfig'
 import { mapObjectToArray } from '../utils'
+import MessagesList from './MessagesList'
+
+
+
 const dbMessages = database.ref('/chat')
 
 class Chat extends React.Component {
     state = {
-        newMessageText: 'krowa',
+        newMessageText: '',
         messages: []
     }
-
-
-    onNewMessageTextChangeHandler = event => this.setState({ newMessageText: event.target.value })
 
     componentDidMount() {
         dbMessages.on(
             'value',
-            snapshot => console.log(mapObjectToArray(snapshot.val()))
+            snapshot => this.setState({
+                messages: mapObjectToArray(snapshot.val()).reverse(),
+                newMessageText: ''
+            })
         )
     }
 
+    componentWillUnmount() {
+        dbMessages.off()
+    }
 
+    onNewMessageTextChangeHandler = event => this.setState({ newMessageText: event.target.value })
 
+    onNewMessageTextClickHandler = () => {
+        dbMessages.push({
+            text: this.state.newMessageText,
+            timestamp: Date.now()
+        })
+    }
 
     render() {
         return (
@@ -31,15 +45,9 @@ class Chat extends React.Component {
                     onNewMessageTextChangeHandler={this.onNewMessageTextChangeHandler}
                     onNewMessageTextClickHandler={this.onNewMessageTextClickHandler}
                 />
-                {
-                    this.state.messages.map(message => (
-                        <div
-                            key={message.key}
-                        >
-                            {message.text}
-                        </div >
-                    ))
-                }
+               <MessagesList
+               messages={this.state.messages}
+               />
             </div>
         )
     }
