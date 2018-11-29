@@ -9,23 +9,35 @@ class Auth extends React.Component {
         isUserLoggedIn: false
     }
 
+    componentDidMount() {
+        auth.onAuthStateChanged(
+            user => {
+                if (user) {
+                    this.setState({ isUserLoggedIn: true })
+                } else {
+                    this.setState({ isUserLoggedIn: false })
+                }
+            }
+        )
+    }
+
     onNewLoginTextChangeHandler = event => this.setState({ email: event.target.value })
     onNewPasswordTextChangeHandler = event => this.setState({ password: event.target.value })
 
-
     onLogInClick = () => {
         auth.signInWithEmailAndPassword(this.state.email, this.state.password)
-    .then(console.log)
-    .then(console.log)
+            .catch(error => {
+                alert('Something went wrong. Check your console to see error details.')
+            })
     }
 
-    onLogInGoogleClick = () => {}
+    onLogInGoogleClick = () => { }
 
     render() {
         return (
             this.state.isUserLoggedIn ?
-            this.props.children
-            :
+                this.props.children
+                :
                 <Forms
                     email={this.state.email}
                     onNewLoginTextChangeHandler={this.onNewLoginTextChangeHandler}

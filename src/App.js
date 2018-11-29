@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import Counter from './Counter'
-// import Chat from './Chat/Chat'
+import Chat from './Chat/Chat'
 import Auth from './Auth/Auth'
 
 class App extends Component {
@@ -11,7 +11,9 @@ class App extends Component {
         {/* <Counter></Counter> */}
 
         {/* <Chat></Chat> */}
-        <Auth></Auth>
+        <Auth>
+          <Chat />
+        </Auth>
       </div>
     )
   }
