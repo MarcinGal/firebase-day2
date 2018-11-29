@@ -23,14 +23,14 @@ const Forms = (props) => (
         />
 
         <RaisedButton
-            label={'Button1'}
+            label={'Sign in'}
             primary={true}
             onClick={props.onLogInClick}
         />
 
 
         <RaisedButton
-            label={' Button2'}
+            label={'Sign in with Google'}
             secondary={true}
             onClick={props.onLogInGoogleClick}
         />

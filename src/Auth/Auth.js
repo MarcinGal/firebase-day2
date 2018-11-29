@@ -1,4 +1,5 @@
 import React from 'react'
+import { auth } from '../firebaseConfig'
 import Forms from './Forms'
 
 class Auth extends React.Component {
@@ -12,8 +13,14 @@ class Auth extends React.Component {
     onNewPasswordTextChangeHandler = event => this.setState({ password: event.target.value })
 
 
-    onLogInClick = () => {}
+    onLogInClick = () => {
+        auth.signInWithEmailAndPassword(this.state.email, this.state.password)
+    .then(console.log)
+    .then(console.log)
+    }
+
     onLogInGoogleClick = () => {}
+
     render() {
         return (
             this.state.isUserLoggedIn ?
