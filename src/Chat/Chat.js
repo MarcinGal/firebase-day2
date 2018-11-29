@@ -1,6 +1,6 @@
 import React from 'react'
 import NewMessageForm from './NewMessageForm'
-import { database } from '../firebaseConfig'
+import { auth, database } from '../firebaseConfig'
 import { mapObjectToArray } from '../utils'
 import MessagesList from './MessagesList'
 
@@ -35,7 +35,11 @@ class Chat extends React.Component {
 
         dbMessages.push({
             text: this.state.newMessageText,
-            timestamp: Date.now()
+            timestamp: Date.now(),
+            author: {
+                email: auth.currentUser.email,
+                displayName: auth.currentUser.displayName
+            }
         })
     }
 

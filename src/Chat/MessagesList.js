@@ -15,7 +15,10 @@ const MessagesList = (props) => (
             props.messages.map(message => (
                 <ListItem
                     primaryText={message.text}
-                    secondaryText={moment(message.timestamp).format('DD-MM-YYYY hh:mm')}
+                    secondaryText={`
+                        ${moment(message.timestamp).format('DD-MM-YYYY hh:mm')}
+                        ${message.author.displayName || message.author.email}
+                    `}
                     key={message.key}
                     rightIconButton={
                         <IconButton
